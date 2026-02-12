@@ -6,31 +6,31 @@
 <title>Corporate Bond Portfolio Construction — Interactive Course</title>
 <style>
 :root {
-  --bg-deep: #080C18;
-  --bg-sidebar: #0B1022;
-  --bg-card: #111827;
-  --bg-card-alt: #161E30;
-  --bg-input: #0D1220;
-  --bg-hover: #1A2340;
-  --text-primary: #E8E6E3;
-  --text-secondary: #9CA3AF;
-  --text-muted: #6B7280;
-  --accent-gold: #D4A843;
-  --accent-teal: #2EC4B6;
-  --accent-blue: #3B82F6;
-  --color-green: #06D6A0;
-  --color-red: #E63946;
-  --color-orange: #F59E0B;
-  --border-color: #1F2937;
-  --border-light: #374151;
-  --radius: 8px;
-  --radius-lg: 12px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --bg-deep: #efebe7;
+  --bg-sidebar: #e2dbda;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f5f1ee;
+  --bg-input: #f8f5f2;
+  --bg-hover: #e8e2de;
+  --text-primary: #1a1414;
+  --text-secondary: #5a4f4a;
+  --text-muted: #8a7f78;
+  --accent-gold: #2b402f;
+  --accent-teal: #3d5a42;
+  --accent-blue: #4a6b50;
+  --color-green: #2b7a3a;
+  --color-red: #c4453a;
+  --color-orange: #d4863a;
+  --border-color: #c2b8ae;
+  --border-light: #d8d0c8;
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 15px; scroll-behavior: smooth; }
 body {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   background: var(--bg-deep);
   color: var(--text-primary);
   display: flex;
@@ -50,7 +50,7 @@ body {
   top: 0;
   overflow-y: auto;
   z-index: 100;
-  background-image: linear-gradient(160deg, rgba(212,168,67,0.03) 0%, transparent 40%, rgba(46,196,182,0.03) 100%);
+  background-image: linear-gradient(160deg, rgba(43,64,47,0.03) 0%, transparent 40%, rgba(43,64,47,0.02) 100%);
 }
 .sidebar-header {
   padding: 24px 20px 16px;
@@ -92,7 +92,7 @@ body {
 }
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-teal), var(--accent-gold));
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-teal));
   border-radius: 3px;
   width: 0%;
   transition: width 0.6s ease;
@@ -154,8 +154,8 @@ body {
   min-width: 0;
   padding: 0;
   background-image:
-    radial-gradient(circle at 20% 80%, rgba(46,196,182,0.02) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(212,168,67,0.02) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, rgba(43,64,47,0.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(43,64,47,0.015) 0%, transparent 50%);
 }
 .section-view {
   display: none;
@@ -250,7 +250,7 @@ body {
 .lesson em { color: var(--accent-teal); font-style: normal; }
 /* Formula blocks */
 .formula {
-  background: #0F1629;
+  background: var(--bg-card-alt);
   border: 1px solid var(--border-color);
   border-left: 3px solid var(--accent-teal);
   padding: 16px 20px;
@@ -371,12 +371,12 @@ body {
   margin: 8px 0;
   transition: all 0.2s;
 }
-.steps-toggle:hover { background: rgba(46,196,182,0.1); }
+.steps-toggle:hover { background: rgba(43,64,47,0.08); }
 .steps-content {
   display: none;
   margin-top: 12px;
   padding: 16px;
-  background: #0D1220;
+  background: var(--bg-input);
   border-radius: var(--radius);
   font-family: Consolas, monospace;
   font-size: 0.85rem;
@@ -384,8 +384,8 @@ body {
 }
 .steps-content.open { display: block; }
 .result-box {
-  background: rgba(6,214,160,0.08);
-  border: 1px solid rgba(6,214,160,0.2);
+  background: rgba(43,122,58,0.08);
+  border: 1px solid rgba(43,122,58,0.2);
   border-radius: var(--radius);
   padding: 14px 18px;
   margin-top: 12px;
@@ -404,7 +404,7 @@ body {
   color: var(--text-primary);
 }
 .interpretation {
-  background: rgba(212,168,67,0.06);
+  background: rgba(43,64,47,0.05);
   border-left: 3px solid var(--accent-gold);
   padding: 12px 16px;
   margin-top: 12px;
@@ -483,31 +483,31 @@ body {
   margin-bottom: 20px;
 }
 .btn {
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 10px 20px;
   border: none;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
 .btn-primary {
-  background: var(--accent-teal);
-  color: #000;
+  background: var(--accent-gold);
+  color: #fff;
 }
-.btn-primary:hover { filter: brightness(1.15); }
+.btn-primary:hover { opacity: 0.9; }
 .btn-secondary {
-  background: var(--bg-card-alt);
+  background: var(--bg-card);
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
 }
 .btn-secondary:hover { background: var(--bg-hover); color: var(--text-primary); }
 .btn-gold {
-  background: var(--accent-gold);
-  color: #000;
+  background: var(--accent-teal);
+  color: #fff;
 }
-.btn-gold:hover { filter: brightness(1.15); }
+.btn-gold:hover { opacity: 0.9; }
 .btn-danger {
   background: transparent;
   color: var(--color-red);
@@ -684,10 +684,10 @@ svg.chart .grid line {
   border-color: var(--accent-teal);
   background: var(--bg-hover);
 }
-.qq-option.selected { border-color: var(--accent-teal); background: rgba(46,196,182,0.08); }
+.qq-option.selected { border-color: var(--accent-teal); background: rgba(43,64,47,0.08); }
 .qq-option.correct {
   border-color: var(--color-green);
-  background: rgba(6,214,160,0.1);
+  background: rgba(43,122,58,0.1);
   color: var(--color-green);
 }
 .qq-option.incorrect {
@@ -698,7 +698,7 @@ svg.chart .grid line {
 .qq-option.disabled.was-correct {
   opacity: 1;
   border-color: var(--color-green);
-  background: rgba(6,214,160,0.1);
+  background: rgba(43,122,58,0.1);
 }
 .qq-explanation {
   margin-top: 10px;
@@ -1115,36 +1115,36 @@ const Chart = {
   },
   drawAxes(ctx, xTicks, yTicks, xLabel, yLabel) {
     const g=this.el('g',{class:'axis'});
-    g.appendChild(this.el('line',{x1:ctx.p.left,y1:ctx.p.top,x2:ctx.p.left,y2:ctx.h-ctx.p.bottom,stroke:'#1F2937'}));
-    g.appendChild(this.el('line',{x1:ctx.p.left,y1:ctx.h-ctx.p.bottom,x2:ctx.w-ctx.p.right,y2:ctx.h-ctx.p.bottom,stroke:'#1F2937'}));
+    g.appendChild(this.el('line',{x1:ctx.p.left,y1:ctx.p.top,x2:ctx.p.left,y2:ctx.h-ctx.p.bottom,stroke:'#c2b8ae'}));
+    g.appendChild(this.el('line',{x1:ctx.p.left,y1:ctx.h-ctx.p.bottom,x2:ctx.w-ctx.p.right,y2:ctx.h-ctx.p.bottom,stroke:'#c2b8ae'}));
     if(xTicks) xTicks.forEach(t=>{
       const x=ctx.p.left+t.pos*ctx.iw;
-      const txt=this.el('text',{x:x,y:ctx.h-ctx.p.bottom+16,fill:'#9CA3AF','text-anchor':'middle','font-size':'10'});
+      const txt=this.el('text',{x:x,y:ctx.h-ctx.p.bottom+16,fill:'#5a4f4a','text-anchor':'middle','font-size':'10'});
       txt.textContent=t.label;
       g.appendChild(txt);
     });
     if(yTicks) yTicks.forEach(t=>{
       const y=ctx.h-ctx.p.bottom-t.pos*ctx.ih;
-      const txt=this.el('text',{x:ctx.p.left-8,y:y+3,fill:'#9CA3AF','text-anchor':'end','font-size':'10'});
+      const txt=this.el('text',{x:ctx.p.left-8,y:y+3,fill:'#5a4f4a','text-anchor':'end','font-size':'10'});
       txt.textContent=t.label;
       g.appendChild(txt);
-      g.appendChild(this.el('line',{x1:ctx.p.left,y1:y,x2:ctx.w-ctx.p.right,y2:y,stroke:'#1F2937','stroke-dasharray':'3,3','stroke-width':'0.5'}));
+      g.appendChild(this.el('line',{x1:ctx.p.left,y1:y,x2:ctx.w-ctx.p.right,y2:y,stroke:'#c2b8ae','stroke-dasharray':'3,3','stroke-width':'0.5'}));
     });
-    if(xLabel){const t=this.el('text',{x:ctx.p.left+ctx.iw/2,y:ctx.h-2,fill:'#6B7280','text-anchor':'middle','font-size':'11'});t.textContent=xLabel;g.appendChild(t);}
-    if(yLabel){const t=this.el('text',{x:12,y:ctx.p.top+ctx.ih/2,fill:'#6B7280','text-anchor':'middle','font-size':'11',transform:`rotate(-90,12,${ctx.p.top+ctx.ih/2})`});t.textContent=yLabel;g.appendChild(t);}
+    if(xLabel){const t=this.el('text',{x:ctx.p.left+ctx.iw/2,y:ctx.h-2,fill:'#8a7f78','text-anchor':'middle','font-size':'11'});t.textContent=xLabel;g.appendChild(t);}
+    if(yLabel){const t=this.el('text',{x:12,y:ctx.p.top+ctx.ih/2,fill:'#8a7f78','text-anchor':'middle','font-size':'11',transform:`rotate(-90,12,${ctx.p.top+ctx.ih/2})`});t.textContent=yLabel;g.appendChild(t);}
     ctx.svg.appendChild(g);
   },
   linePlot(ctx, data, color, strokeWidth) {
     if(!data.length)return;
     const pts=data.map(d=>`${ctx.p.left+d.x*ctx.iw},${ctx.h-ctx.p.bottom-d.y*ctx.ih}`).join(' ');
-    const pl=this.el('polyline',{points:pts,fill:'none',stroke:color||'#2EC4B6','stroke-width':strokeWidth||2,'stroke-linejoin':'round'});
+    const pl=this.el('polyline',{points:pts,fill:'none',stroke:color||'#2b402f','stroke-width':strokeWidth||2,'stroke-linejoin':'round'});
     ctx.svg.appendChild(pl);
   },
   areaPlot(ctx, data, color) {
     if(!data.length)return;
     const pts=data.map(d=>`${ctx.p.left+d.x*ctx.iw},${ctx.h-ctx.p.bottom-d.y*ctx.ih}`);
     const pathD=`M${ctx.p.left+data[0].x*ctx.iw},${ctx.h-ctx.p.bottom} L${pts.join(' L')} L${ctx.p.left+data[data.length-1].x*ctx.iw},${ctx.h-ctx.p.bottom} Z`;
-    const p=this.el('path',{d:pathD,fill:color||'rgba(46,196,182,0.15)',stroke:'none'});
+    const p=this.el('path',{d:pathD,fill:color||'rgba(218,119,86,0.15)',stroke:'none'});
     ctx.svg.appendChild(p);
   },
   barChart(ctx, bars, color) {
@@ -1153,9 +1153,9 @@ const Chart = {
       const x=ctx.p.left+(i+0.25)*ctx.iw/bars.length;
       const h=b.value*ctx.ih;
       const y=ctx.h-ctx.p.bottom-h;
-      const c=b.color||color||'#2EC4B6';
+      const c=b.color||color||'#2b402f';
       ctx.svg.appendChild(this.el('rect',{x:x,y:h>=0?y:ctx.h-ctx.p.bottom,width:barW,height:Math.abs(h),fill:c,rx:'3'}));
-      const txt=this.el('text',{x:x+barW/2,y:ctx.h-ctx.p.bottom+14,fill:'#9CA3AF','text-anchor':'middle','font-size':'9'});
+      const txt=this.el('text',{x:x+barW/2,y:ctx.h-ctx.p.bottom+14,fill:'#5a4f4a','text-anchor':'middle','font-size':'9'});
       txt.textContent=b.label;
       ctx.svg.appendChild(txt);
     });
@@ -1167,14 +1167,14 @@ const Chart = {
       const x=ctx.p.left+(i+0.25)*ctx.iw/items.length;
       const h=item.value*ctx.ih;
       const startY=ctx.h-ctx.p.bottom-cumY*ctx.ih;
-      const color=item.value>=0?'#06D6A0':'#E63946';
+      const color=item.value>=0?'#2b7a3a':'#c4453a';
       const rect=this.el('rect',{x:x,y:h>=0?startY-h:startY,width:barW,height:Math.abs(h),fill:item.color||color,rx:'2'});
       ctx.svg.appendChild(rect);
       cumY+=item.value;
-      const txt=this.el('text',{x:x+barW/2,y:ctx.h-ctx.p.bottom+14,fill:'#9CA3AF','text-anchor':'middle','font-size':'8'});
+      const txt=this.el('text',{x:x+barW/2,y:ctx.h-ctx.p.bottom+14,fill:'#5a4f4a','text-anchor':'middle','font-size':'8'});
       txt.textContent=item.label;
       ctx.svg.appendChild(txt);
-      const vtxt=this.el('text',{x:x+barW/2,y:(h>=0?startY-h:startY)-5,fill:'#E8E6E3','text-anchor':'middle','font-size':'9'});
+      const vtxt=this.el('text',{x:x+barW/2,y:(h>=0?startY-h:startY)-5,fill:'#1a1414','text-anchor':'middle','font-size':'9'});
       vtxt.textContent=item.displayValue||'';
       ctx.svg.appendChild(vtxt);
     });
@@ -1195,7 +1195,7 @@ const Chart = {
       const midAngle=startAngle+angle/2;
       const lx=cx+(outerR+16)*Math.cos(midAngle),ly=cy+(outerR+16)*Math.sin(midAngle);
       if(sl.value/total>0.05){
-        const t=this.el('text',{x:lx,y:ly+3,fill:'#E8E6E3','text-anchor':'middle','font-size':'9'});
+        const t=this.el('text',{x:lx,y:ly+3,fill:'#1a1414','text-anchor':'middle','font-size':'9'});
         t.textContent=sl.label;
         ctx.svg.appendChild(t);
       }
@@ -1208,13 +1208,13 @@ const Chart = {
     bins.forEach((b,i)=>{
       const x=ctx.p.left+i*barW;
       const h=(b.count/maxVal)*ctx.ih;
-      ctx.svg.appendChild(this.el('rect',{x:x+1,y:ctx.h-ctx.p.bottom-h,width:barW-2,height:h,fill:color||'#2EC4B6',opacity:'0.7',rx:'1'}));
+      ctx.svg.appendChild(this.el('rect',{x:x+1,y:ctx.h-ctx.p.bottom-h,width:barW-2,height:h,fill:color||'#2b402f',opacity:'0.7',rx:'1'}));
     });
   },
   addMarker(ctx, xPos, label, color) {
     const x=ctx.p.left+xPos*ctx.iw;
-    ctx.svg.appendChild(this.el('line',{x1:x,y1:ctx.p.top,x2:x,y2:ctx.h-ctx.p.bottom,stroke:color||'#E63946','stroke-width':'2','stroke-dasharray':'5,4'}));
-    const t=this.el('text',{x:x,y:ctx.p.top-5,fill:color||'#E63946','text-anchor':'middle','font-size':'10','font-weight':'bold'});
+    ctx.svg.appendChild(this.el('line',{x1:x,y1:ctx.p.top,x2:x,y2:ctx.h-ctx.p.bottom,stroke:color||'#c4453a','stroke-width':'2','stroke-dasharray':'5,4'}));
+    const t=this.el('text',{x:x,y:ctx.p.top-5,fill:color||'#c4453a','text-anchor':'middle','font-size':'10','font-weight':'bold'});
     t.textContent=label;
     ctx.svg.appendChild(t);
   },
@@ -1229,7 +1229,7 @@ const Chart = {
         ctx.svg.appendChild(this.el('rect',{x:x,y:y,width:barW,height:h,fill:s.color,rx:'1'}));
         cumH+=h;
       });
-      const txt=this.el('text',{x:x+barW/2,y:ctx.h-ctx.p.bottom+14,fill:'#9CA3AF','text-anchor':'middle','font-size':'9'});
+      const txt=this.el('text',{x:x+barW/2,y:ctx.h-ctx.p.bottom+14,fill:'#5a4f4a','text-anchor':'middle','font-size':'9'});
       txt.textContent=cat;
       ctx.svg.appendChild(txt);
     });
@@ -1237,7 +1237,7 @@ const Chart = {
   legend(ctx, items, x, y) {
     items.forEach((item,i)=>{
       ctx.svg.appendChild(this.el('rect',{x:x,y:y+i*18,width:12,height:12,fill:item.color,rx:'2'}));
-      const t=this.el('text',{x:x+18,y:y+i*18+10,fill:'#9CA3AF','font-size':'10'});
+      const t=this.el('text',{x:x+18,y:y+i*18+10,fill:'#5a4f4a','font-size':'10'});
       t.textContent=item.label;
       ctx.svg.appendChild(t);
     });
@@ -1428,7 +1428,7 @@ const SECTIONS = [
       }
 
       Chart.drawAxes(ctx, xTicks, yTicks, 'Yield to Maturity', 'Bond Price ($)');
-      Chart.linePlot(ctx, data, '#3b82f6', 2.5);
+      Chart.linePlot(ctx, data, '#2b402f', 2.5);
 
       // Mark the current YTM point
       var currentPrice = BondMath.priceFromYTM(4.5, 5, 1000, 5.25, 2);
@@ -1438,7 +1438,7 @@ const SECTIONS = [
         cx: ctx.p.left + dotX * ctx.iw,
         cy: ctx.p.top + ctx.ih - dotY * ctx.ih,
         r: 6,
-        fill: '#ef4444',
+        fill: '#c4453a',
         stroke: '#fff',
         'stroke-width': 2
       });
@@ -1447,7 +1447,7 @@ const SECTIONS = [
       var label = Chart.el('text', {
         x: ctx.p.left + dotX * ctx.iw + 12,
         y: ctx.p.top + ctx.ih - dotY * ctx.ih - 8,
-        fill: '#ef4444',
+        fill: '#c4453a',
         'font-size': '12px',
         'font-weight': 'bold'
       });
@@ -1461,7 +1461,7 @@ const SECTIONS = [
         y1: ctx.p.top + ctx.ih - parY * ctx.ih,
         x2: ctx.p.left + ctx.iw,
         y2: ctx.p.top + ctx.ih - parY * ctx.ih,
-        stroke: '#94a3b8',
+        stroke: '#a09488',
         'stroke-width': 1,
         'stroke-dasharray': '5,5'
       });
@@ -1470,15 +1470,15 @@ const SECTIONS = [
       var parLabel = Chart.el('text', {
         x: ctx.p.left + ctx.iw + 3,
         y: ctx.p.top + ctx.ih - parY * ctx.ih + 4,
-        fill: '#94a3b8',
+        fill: '#a09488',
         'font-size': '11px'
       });
       parLabel.textContent = 'Par ($1,000)';
       ctx.svg.appendChild(parLabel);
 
       Chart.legend(ctx, [
-        { label: 'Price-Yield Curve (5Y 4.50% Bond)', color: '#3b82f6' },
-        { label: 'Current Price at 5.25%', color: '#ef4444' }
+        { label: 'Price-Yield Curve (5Y 4.50% Bond)', color: '#2b402f' },
+        { label: 'Current Price at 5.25%', color: '#c4453a' }
       ], ctx.p.left + 10, 12);
 
       container.appendChild(ctx.svg);
@@ -1703,22 +1703,22 @@ const SECTIONS = [
 
       // Build a waterfall showing spread decomposition
       var items = [
-        { label: 'Treasury Yield', value: 0.45, displayValue: '3.95%', color: '#3b82f6' },
-        { label: '+ G-Spread', value: 0.23, displayValue: '+204 bps', color: '#f59e0b' },
-        { label: '= Bond YTM', value: 0.68, displayValue: '5.99%', color: '#10b981' },
-        { label: 'Swap Rate', value: 0.47, displayValue: '4.15%', color: '#6366f1' },
-        { label: '+ I-Spread', value: 0.21, displayValue: '+184 bps', color: '#f97316' },
-        { label: 'Z-Spread', value: 0.24, displayValue: '210 bps', color: '#ef4444' },
-        { label: 'OAS', value: 0.235, displayValue: '208 bps', color: '#ec4899' },
-        { label: 'Option Cost', value: 0.005, displayValue: '~2 bps', color: '#94a3b8' }
+        { label: 'Treasury Yield', value: 0.45, displayValue: '3.95%', color: '#2b402f' },
+        { label: '+ G-Spread', value: 0.23, displayValue: '+204 bps', color: '#5a8c62' },
+        { label: '= Bond YTM', value: 0.68, displayValue: '5.99%', color: '#2b7a3a' },
+        { label: 'Swap Rate', value: 0.47, displayValue: '4.15%', color: '#7a9e82' },
+        { label: '+ I-Spread', value: 0.21, displayValue: '+184 bps', color: '#d4863a' },
+        { label: 'Z-Spread', value: 0.24, displayValue: '210 bps', color: '#c4453a' },
+        { label: 'OAS', value: 0.235, displayValue: '208 bps', color: '#8a6d5e' },
+        { label: 'Option Cost', value: 0.005, displayValue: '~2 bps', color: '#a09488' }
       ];
 
       Chart.waterfallChart(ctx, items);
 
       Chart.legend(ctx, [
-        { label: 'Risk-Free Rate', color: '#3b82f6' },
-        { label: 'Credit/Liquidity Spread', color: '#f59e0b' },
-        { label: 'Option Cost', color: '#94a3b8' }
+        { label: 'Risk-Free Rate', color: '#2b402f' },
+        { label: 'Credit/Liquidity Spread', color: '#5a8c62' },
+        { label: 'Option Cost', color: '#a09488' }
       ], ctx.p.left + 10, 12);
 
       container.appendChild(ctx.svg);
@@ -1956,7 +1956,7 @@ const SECTIONS = [
       var ctx = Chart.create(700, 350, { top: 30, right: 30, bottom: 50, left: 70 });
 
       var hazardRates = [0.01, 0.02, 0.04];
-      var colors = ['#3b82f6', '#f59e0b', '#ef4444'];
+      var colors = ['#2b402f', '#5a8c62', '#c4453a'];
       var labels = ['1% Hazard Rate', '2% Hazard Rate', '4% Hazard Rate'];
 
       var maxT = 20;
@@ -2283,7 +2283,7 @@ const SECTIONS = [
           y: ctx.p.top + ctx.ih - modH,
           width: bw,
           height: modH,
-          fill: k === 3 ? '#10b981' : '#3b82f6',
+          fill: k === 3 ? '#2b7a3a' : '#2b402f',
           rx: 2
         });
         ctx.svg.appendChild(modBar);
@@ -2293,7 +2293,7 @@ const SECTIONS = [
           y: ctx.p.top + ctx.ih - sprH,
           width: bw,
           height: sprH,
-          fill: k === 3 ? '#34d399' : '#f59e0b',
+          fill: k === 3 ? '#8ab590' : '#5a8c62',
           opacity: 0.85,
           rx: 2
         });
@@ -2303,7 +2303,7 @@ const SECTIONS = [
         var valLabel = Chart.el('text', {
           x: modBarX + bw / 2,
           y: ctx.p.top + ctx.ih - modH - 5,
-          fill: '#e2e8f0',
+          fill: '#1a1414',
           'font-size': '11px',
           'text-anchor': 'middle',
           'font-weight': 'bold'
@@ -2313,9 +2313,9 @@ const SECTIONS = [
       }
 
       Chart.legend(ctx, [
-        { label: 'Modified Duration', color: '#3b82f6' },
-        { label: 'Spread Duration', color: '#f59e0b' },
-        { label: 'Portfolio (Mod. Dur.)', color: '#10b981' }
+        { label: 'Modified Duration', color: '#2b402f' },
+        { label: 'Spread Duration', color: '#5a8c62' },
+        { label: 'Portfolio (Mod. Dur.)', color: '#2b7a3a' }
       ], ctx.p.left + 10, 12);
 
       container.appendChild(ctx.svg);
@@ -2622,14 +2622,14 @@ const SECTIONS = [
       }
       Chart.areaPlot(ctx, baseLine, 'rgba(59,130,246,0.08)');
 
-      Chart.linePlot(ctx, baseLine, '#3b82f6', 2.5);
-      Chart.linePlot(ctx, steepLine, '#ef4444', 2.5);
+      Chart.linePlot(ctx, baseLine, '#2b402f', 2.5);
+      Chart.linePlot(ctx, steepLine, '#c4453a', 2.5);
 
       // Bond position markers
       var bondPositions = [
-        { mat: 2, label: '2Y Bond', color: '#10b981' },
-        { mat: 7, label: '7Y Bullet', color: '#f59e0b' },
-        { mat: 15, label: '15Y Bond', color: '#a855f7' }
+        { mat: 2, label: '2Y Bond', color: '#2b7a3a' },
+        { mat: 7, label: '7Y Bullet', color: '#5a8c62' },
+        { mat: 15, label: '15Y Bond', color: '#8a6d5e' }
       ];
 
       for (var b = 0; b < bondPositions.length; b++) {
@@ -2675,7 +2675,7 @@ const SECTIONS = [
       var arrow = Chart.el('line', {
         x1: arrowX, y1: arrowY1,
         x2: arrowX, y2: arrowY2,
-        stroke: '#ef4444',
+        stroke: '#c4453a',
         'stroke-width': 2,
         'marker-end': 'none'
       });
@@ -2683,18 +2683,18 @@ const SECTIONS = [
       var arrowLabel = Chart.el('text', {
         x: arrowX + 8,
         y: (arrowY1 + arrowY2) / 2 + 4,
-        fill: '#ef4444',
+        fill: '#c4453a',
         'font-size': '11px'
       });
       arrowLabel.textContent = '+50bp';
       ctx.svg.appendChild(arrowLabel);
 
       Chart.legend(ctx, [
-        { label: 'Current Curve', color: '#3b82f6' },
-        { label: 'After Steepening', color: '#ef4444' },
-        { label: '2Y Bond', color: '#10b981' },
-        { label: '7Y Bullet', color: '#f59e0b' },
-        { label: '15Y Bond', color: '#a855f7' }
+        { label: 'Current Curve', color: '#2b402f' },
+        { label: 'After Steepening', color: '#c4453a' },
+        { label: '2Y Bond', color: '#2b7a3a' },
+        { label: '7Y Bullet', color: '#5a8c62' },
+        { label: '15Y Bond', color: '#8a6d5e' }
       ], ctx.p.left + 10, 12);
 
       container.appendChild(ctx.svg);
@@ -2977,27 +2977,27 @@ const SECTIONS = [
     drawChart: function(container) {
       var ctx = Chart.create(700, 400, { top: 30, right: 30, bottom: 60, left: 50 });
       var sectorSlices = [
-        { label: 'Financials', value: 25, color: '#3b82f6' },
-        { label: 'Technology', value: 25, color: '#10b981' },
-        { label: 'Telecom', value: 12.5, color: '#f59e0b' },
-        { label: 'Utilities', value: 25, color: '#8b5cf6' },
-        { label: 'Healthcare', value: 12.5, color: '#ef4444' }
+        { label: 'Financials', value: 25, color: '#2b402f' },
+        { label: 'Technology', value: 25, color: '#2b7a3a' },
+        { label: 'Telecom', value: 12.5, color: '#5a8c62' },
+        { label: 'Utilities', value: 25, color: '#b8956a' },
+        { label: 'Healthcare', value: 12.5, color: '#c4453a' }
       ];
       Chart.donutChart(ctx, sectorSlices, 175, 200, 130, 70);
       Chart.legend(ctx, sectorSlices, 340, 80);
-      var titleEl = Chart.el('text', { x: 175, y: 25, 'text-anchor': 'middle', fill: '#e2e8f0', 'font-size': '14px', 'font-weight': 'bold' });
+      var titleEl = Chart.el('text', { x: 175, y: 25, 'text-anchor': 'middle', fill: '#1a1414', 'font-size': '14px', 'font-weight': 'bold' });
       titleEl.textContent = 'Sector Allocation';
       ctx.svg.appendChild(titleEl);
       container.appendChild(ctx.svg);
 
       var ctx2 = Chart.create(700, 350, { top: 30, right: 30, bottom: 60, left: 50 });
       var ratingBars = [
-        { label: 'AAA/AA', value: 0.25, color: '#10b981' },
-        { label: 'A', value: 0.50, color: '#3b82f6' },
-        { label: 'BBB', value: 0.25, color: '#f59e0b' }
+        { label: 'AAA/AA', value: 0.25, color: '#2b7a3a' },
+        { label: 'A', value: 0.50, color: '#2b402f' },
+        { label: 'BBB', value: 0.25, color: '#5a8c62' }
       ];
-      Chart.barChart(ctx2, ratingBars, '#3b82f6');
-      var titleEl2 = Chart.el('text', { x: 350, y: 20, 'text-anchor': 'middle', fill: '#e2e8f0', 'font-size': '14px', 'font-weight': 'bold' });
+      Chart.barChart(ctx2, ratingBars, '#2b402f');
+      var titleEl2 = Chart.el('text', { x: 350, y: 20, 'text-anchor': 'middle', fill: '#1a1414', 'font-size': '14px', 'font-weight': 'bold' });
       titleEl2.textContent = 'Rating Distribution';
       ctx2.svg.appendChild(titleEl2);
       container.appendChild(ctx2.svg);
@@ -3202,19 +3202,19 @@ const SECTIONS = [
       var ctx = Chart.create(700, 400, { top: 40, right: 30, bottom: 60, left: 60 });
       var categories = ['Bond 1\n(AAA)', 'Bond 2\n(A)', 'Bond 3\n(BBB)', 'Bond 4\n(A)', 'Bond 5\n(BBB)'];
       var series = [
-        { color: '#3b82f6', label: 'IR Risk', values: [0.25, 0.20, 0.30, 0.28, 0.35] },
-        { color: '#f59e0b', label: 'Spread Risk', values: [0.03, 0.22, 0.35, 0.25, 0.38] },
-        { color: '#ef4444', label: 'Default Risk', values: [0.01, 0.03, 0.08, 0.03, 0.08] },
-        { color: '#8b5cf6', label: 'Liquidity Risk', values: [0.01, 0.04, 0.09, 0.05, 0.11] }
+        { color: '#2b402f', label: 'IR Risk', values: [0.25, 0.20, 0.30, 0.28, 0.35] },
+        { color: '#5a8c62', label: 'Spread Risk', values: [0.03, 0.22, 0.35, 0.25, 0.38] },
+        { color: '#c4453a', label: 'Default Risk', values: [0.01, 0.03, 0.08, 0.03, 0.08] },
+        { color: '#b8956a', label: 'Liquidity Risk', values: [0.01, 0.04, 0.09, 0.05, 0.11] }
       ];
       Chart.stackedBar(ctx, categories, series);
       Chart.legend(ctx, [
-        { label: 'IR Risk', color: '#3b82f6' },
-        { label: 'Spread Risk', color: '#f59e0b' },
-        { label: 'Default Risk', color: '#ef4444' },
-        { label: 'Liquidity Risk', color: '#8b5cf6' }
+        { label: 'IR Risk', color: '#2b402f' },
+        { label: 'Spread Risk', color: '#5a8c62' },
+        { label: 'Default Risk', color: '#c4453a' },
+        { label: 'Liquidity Risk', color: '#b8956a' }
       ], 420, 50);
-      var titleEl = Chart.el('text', { x: 350, y: 25, 'text-anchor': 'middle', fill: '#e2e8f0', 'font-size': '14px', 'font-weight': 'bold' });
+      var titleEl = Chart.el('text', { x: 350, y: 25, 'text-anchor': 'middle', fill: '#1a1414', 'font-size': '14px', 'font-weight': 'bold' });
       titleEl.textContent = 'Risk Decomposition by Bond';
       ctx.svg.appendChild(titleEl);
       container.appendChild(ctx.svg);
@@ -3416,14 +3416,14 @@ const SECTIONS = [
     drawChart: function(container) {
       var ctx = Chart.create(700, 420, { top: 40, right: 30, bottom: 60, left: 80 });
       var items = [
-        { label: 'Carry', value: 0.30, displayValue: '+18.8bp', color: '#10b981' },
-        { label: 'Roll-Down', value: 0.05, displayValue: '+3.0bp', color: '#10b981' },
-        { label: 'Spread', value: 0.75, displayValue: '+93.0bp', color: '#3b82f6' },
-        { label: 'Rates', value: -0.52, displayValue: '-65.0bp', color: '#ef4444' },
-        { label: 'Total', value: 0.40, displayValue: '+49.8bp', color: '#f59e0b' }
+        { label: 'Carry', value: 0.30, displayValue: '+18.8bp', color: '#2b7a3a' },
+        { label: 'Roll-Down', value: 0.05, displayValue: '+3.0bp', color: '#2b7a3a' },
+        { label: 'Spread', value: 0.75, displayValue: '+93.0bp', color: '#2b402f' },
+        { label: 'Rates', value: -0.52, displayValue: '-65.0bp', color: '#c4453a' },
+        { label: 'Total', value: 0.40, displayValue: '+49.8bp', color: '#5a8c62' }
       ];
       Chart.waterfallChart(ctx, items);
-      var titleEl = Chart.el('text', { x: 350, y: 25, 'text-anchor': 'middle', fill: '#e2e8f0', 'font-size': '14px', 'font-weight': 'bold' });
+      var titleEl = Chart.el('text', { x: 350, y: 25, 'text-anchor': 'middle', fill: '#1a1414', 'font-size': '14px', 'font-weight': 'bold' });
       titleEl.textContent = 'Quarterly Return Attribution (bps)';
       ctx.svg.appendChild(titleEl);
       container.appendChild(ctx.svg);
@@ -3623,16 +3623,16 @@ const SECTIONS = [
       var ctx = Chart.create(700, 420, { top: 40, right: 30, bottom: 80, left: 60 });
       var categories = ['Rate\nShock', 'Spread\nShock', 'Default\nShock', 'Combined'];
       var series = [
-        { color: '#3b82f6', label: 'P&L Impact ($M)', values: [0.62, 0.47, 0.12, 1.0] }
+        { color: '#2b402f', label: 'P&L Impact ($M)', values: [0.62, 0.47, 0.12, 1.0] }
       ];
       var bars = [
-        { label: 'Rate +100bp', value: 0.52, color: '#ef4444' },
-        { label: 'Spread +75bp', value: 0.39, color: '#f59e0b' },
-        { label: 'Default 2%', value: 0.10, color: '#8b5cf6' },
-        { label: 'Combined', value: 1.0, color: '#ef4444' }
+        { label: 'Rate +100bp', value: 0.52, color: '#c4453a' },
+        { label: 'Spread +75bp', value: 0.39, color: '#5a8c62' },
+        { label: 'Default 2%', value: 0.10, color: '#b8956a' },
+        { label: 'Combined', value: 1.0, color: '#c4453a' }
       ];
-      Chart.barChart(ctx, bars, '#ef4444');
-      var titleEl = Chart.el('text', { x: 350, y: 25, 'text-anchor': 'middle', fill: '#e2e8f0', 'font-size': '14px', 'font-weight': 'bold' });
+      Chart.barChart(ctx, bars, '#c4453a');
+      var titleEl = Chart.el('text', { x: 350, y: 25, 'text-anchor': 'middle', fill: '#1a1414', 'font-size': '14px', 'font-weight': 'bold' });
       titleEl.textContent = 'Stress Test: Loss by Scenario (Normalized)';
       ctx.svg.appendChild(titleEl);
       container.appendChild(ctx.svg);
@@ -3886,12 +3886,12 @@ const SECTIONS = [
       for (var i = 0; i < bins.length; i++) {
         bins[i].count = bins[i].count / maxCount;
       }
-      Chart.histogram(ctx, bins, '#3b82f6');
+      Chart.histogram(ctx, bins, '#2b402f');
       var varPos = (-(-0.45) - (-1.5)) / (1.5 - (-1.5));
-      Chart.addMarker(ctx, 1 - varPos, '95% VaR\n(-0.45%)', '#ef4444');
+      Chart.addMarker(ctx, 1 - varPos, '95% VaR\n(-0.45%)', '#c4453a');
       var esPos = (-(-0.62) - (-1.5)) / (1.5 - (-1.5));
-      Chart.addMarker(ctx, 1 - esPos, '95% ES\n(-0.62%)', '#f59e0b');
-      var titleEl = Chart.el('text', { x: 350, y: 25, 'text-anchor': 'middle', fill: '#e2e8f0', 'font-size': '14px', 'font-weight': 'bold' });
+      Chart.addMarker(ctx, 1 - esPos, '95% ES\n(-0.62%)', '#5a8c62');
+      var titleEl = Chart.el('text', { x: 350, y: 25, 'text-anchor': 'middle', fill: '#1a1414', 'font-size': '14px', 'font-weight': 'bold' });
       titleEl.textContent = 'Monthly Return Distribution with VaR & ES';
       ctx.svg.appendChild(titleEl);
       container.appendChild(ctx.svg);
@@ -4558,7 +4558,7 @@ const Renderer = {
     const container = document.getElementById('capstone-alloc-chart');
     if (!container) return;
 
-    const colors = ['#2EC4B6', '#D4A843', '#3B82F6', '#E63946', '#06D6A0', '#F59E0B', '#8B5CF6'];
+    const colors = ['#2b402f', '#5a8c62', '#8ab590', '#c4453a', '#2b7a3a', '#d4863a', '#7a9e82'];
     const sectors = Object.keys(sectorMap);
     const slices = sectors.map((s, i) => ({
       label: s + ' ' + (sectorMap[s] * 100).toFixed(0) + '%',
@@ -4579,10 +4579,10 @@ const Renderer = {
     const scale = maxAbs > 0 ? 1 / (maxAbs * 1.3) : 1;
 
     const bars = [
-      { label: 'Rate', value: Math.abs(rateLoss * 100) * scale, color: '#E63946' },
-      { label: 'Spread', value: Math.abs(spreadLoss * 100) * scale, color: '#F59E0B' },
-      { label: 'Default', value: Math.abs(defaultLoss * 100) * scale, color: '#8B5CF6' },
-      { label: 'Total', value: Math.abs((rateLoss + spreadLoss + defaultLoss) * 100) * scale, color: '#D4A843' }
+      { label: 'Rate', value: Math.abs(rateLoss * 100) * scale, color: '#c4453a' },
+      { label: 'Spread', value: Math.abs(spreadLoss * 100) * scale, color: '#d4863a' },
+      { label: 'Default', value: Math.abs(defaultLoss * 100) * scale, color: '#7a9e82' },
+      { label: 'Total', value: Math.abs((rateLoss + spreadLoss + defaultLoss) * 100) * scale, color: '#2b402f' }
     ];
 
     const ctx = Chart.create(500, 220, { top: 30, right: 30, bottom: 40, left: 55 });
@@ -4603,12 +4603,12 @@ const Renderer = {
     const scale = maxVal > 0 ? 1 / (maxVal * 1.4) : 1;
 
     const items = [
-      { label: 'Carry', value: attr.carry * scale, displayValue: '+' + attr.carry.toFixed(2) + '%', color: '#06D6A0' },
-      { label: 'Roll', value: attr.rollDown * scale, displayValue: '+' + attr.rollDown.toFixed(2) + '%', color: '#06D6A0' },
+      { label: 'Carry', value: attr.carry * scale, displayValue: '+' + attr.carry.toFixed(2) + '%', color: '#2b7a3a' },
+      { label: 'Roll', value: attr.rollDown * scale, displayValue: '+' + attr.rollDown.toFixed(2) + '%', color: '#2b7a3a' },
       { label: 'Spread', value: attr.spreadPnL * scale, displayValue: attr.spreadPnL.toFixed(2) + '%' },
       { label: 'Rate', value: attr.ratePnL * scale, displayValue: attr.ratePnL.toFixed(2) + '%' },
       { label: 'Default', value: attr.defaultLoss * scale, displayValue: attr.defaultLoss.toFixed(2) + '%' },
-      { label: 'Total', value: attr.totalReturn * scale, displayValue: attr.totalReturn.toFixed(2) + '%', color: '#D4A843' }
+      { label: 'Total', value: attr.totalReturn * scale, displayValue: attr.totalReturn.toFixed(2) + '%', color: '#2b402f' }
     ];
 
     const ctx = Chart.create(560, 250, { top: 40, right: 30, bottom: 40, left: 55 });
@@ -4616,7 +4616,7 @@ const Renderer = {
     const zeroY = ctx.h - ctx.p.bottom;
     ctx.svg.appendChild(Chart.el('line', {
       x1: ctx.p.left, y1: zeroY, x2: ctx.w - ctx.p.right, y2: zeroY,
-      stroke: '#374151', 'stroke-width': '1'
+      stroke: '#c2b8ae', 'stroke-width': '1'
     }));
     Chart.waterfallChart(ctx, items);
     container.appendChild(ctx.svg);

@@ -6,7 +6,8 @@
       "Bash(ls:*)",
       "Bash(wc:*)",
       "Bash(node:*)",
-      "Bash(del:*)"
+      "Bash(del:*)",
+      "WebFetch(domain:www.nutrient.io)"
     ]
   }
 }
