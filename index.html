@@ -508,6 +508,58 @@ body {
   color: #000;
 }
 .btn-gold:hover { filter: brightness(1.15); }
+.btn-danger {
+  background: transparent;
+  color: var(--color-red);
+  border: 1px solid var(--color-red);
+  font-size: 0.72rem;
+  padding: 7px 14px;
+}
+.btn-danger:hover { background: var(--color-red); color: #fff; }
+.sidebar-footer {
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--border-color);
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+}
+.modal-box h3 {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.modal-box p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.modal-actions .btn { min-width: 100px; }
+.btn-danger-solid {
+  background: var(--color-red);
+  color: #fff;
+  padding: 10px 20px;
+}
+.btn-danger-solid:hover { filter: brightness(1.15); }
 .calc-results {
   background: var(--bg-input);
   border: 1px solid var(--border-color);
@@ -805,6 +857,9 @@ svg.chart .grid line {
     <div class="progress-text" id="progressText">0 / 11 completed</div>
   </div>
   <ul class="nav-list" id="navList"></ul>
+  <div class="sidebar-footer">
+    <button class="btn btn-danger" onclick="resetProgress()">Reset All Progress</button>
+  </div>
 </nav>
 <main id="main">
   <div id="sectionContainer"></div>
@@ -4073,6 +4128,17 @@ const State = {
     let c = Object.keys(this.quizScores).length;
     if (this.capstoneScore !== null) c++;
     return c;
+  },
+
+  reset() {
+    this.currentSection = 'section-1';
+    this.quizScores = {};
+    this.quizAnswers = {};
+    this.capstoneScore = null;
+    this.capstoneAnswers = [];
+    try {
+      localStorage.removeItem('corpbond-course');
+    } catch(e) { /* localStorage unavailable */ }
   }
 };
 
@@ -4283,13 +4349,17 @@ const Renderer = {
     if (!questions || questions.length === 0) return '<p class="text-muted">No quiz for this section.</p>';
 
     const prevAnswers = (quizId === 'capstone') ? State.capstoneAnswers : (State.quizAnswers[quizId] || []);
-    const alreadyDone = prevAnswers.length === questions.length;
+    const hasAnyAnswer = prevAnswers.some(function(a) { return a !== undefined && a !== null; });
 
     let html = '<div class="quiz-container">';
     html += `<div class="quiz-header">
       <h3 style="font-family:Consolas,monospace;color:var(--accent-gold);font-size:1rem;">Knowledge Check</h3>
-      <div class="quiz-score" id="score-${quizId}">`;
-    if (alreadyDone) {
+      <div style="display:flex;align-items:center;gap:12px;">`;
+    if (hasAnyAnswer) {
+      html += `<button class="btn btn-danger" onclick="resetSectionQuiz('${quizId}')" style="font-size:0.7rem;padding:5px 10px;">Reset Quiz</button>`;
+    }
+    html += `<div class="quiz-score" id="score-${quizId}">`;
+    if (hasAnyAnswer) {
       const sc = (quizId === 'capstone') ? State.capstoneScore : (State.quizScores[quizId] || {});
       const correct = (quizId === 'capstone') ? (sc || 0) : (sc.correct || 0);
       const total = questions.length;
@@ -4297,7 +4367,7 @@ const Renderer = {
     } else {
       html += `<span class="score-val">0</span> / ${questions.length}`;
     }
-    html += '</div></div>';
+    html += '</div></div></div>';
 
     questions.forEach((qObj, qi) => {
       const qId = `${quizId}-q${qi}`;
@@ -4305,7 +4375,13 @@ const Renderer = {
       const answered = prevAnswer !== undefined && prevAnswer !== null;
 
       html += `<div class="quiz-question" id="${qId}">`;
-      html += `<div class="qq-num">Question ${qi + 1} of ${questions.length}</div>`;
+      html += `<div class="qq-num" style="display:flex;justify-content:space-between;align-items:center;">` +
+        `<span>Question ${qi + 1} of ${questions.length}</span>`;
+      if (answered) {
+        html += `<button class="btn btn-danger" onclick="resetSingleQuestion('${quizId}',${qi})" ` +
+          `style="font-size:0.65rem;padding:3px 8px;">Retry</button>`;
+      }
+      html += '</div>';
       html += `<div class="qq-text">${qObj.q}</div>`;
       html += '<div class="qq-options">';
       qObj.options.forEach((opt, oi) => {
@@ -4656,6 +4732,29 @@ function handleQuizAnswer(el, quizId, qi, oi) {
   const explEl = document.getElementById(quizId + '-q' + qi + '-expl');
   if (explEl) explEl.classList.add('show');
 
+  // Add retry button
+  const qqNum = qContainer.querySelector('.qq-num');
+  if (qqNum && !qqNum.querySelector('.btn-danger')) {
+    const retryBtn = document.createElement('button');
+    retryBtn.className = 'btn btn-danger';
+    retryBtn.style.cssText = 'font-size:0.65rem;padding:3px 8px;';
+    retryBtn.textContent = 'Retry';
+    retryBtn.onclick = function() { resetSingleQuestion(quizId, qi); };
+    qqNum.appendChild(retryBtn);
+  }
+
+  // Add "Reset Quiz" button in header if not already present
+  const quizHeader = qContainer.closest('.quiz-container').querySelector('.quiz-header');
+  if (quizHeader && !quizHeader.querySelector('.btn-danger')) {
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'btn btn-danger';
+    resetBtn.style.cssText = 'font-size:0.7rem;padding:5px 10px;';
+    resetBtn.textContent = 'Reset Quiz';
+    resetBtn.onclick = function() { resetSectionQuiz(quizId); };
+    var wrapper = quizHeader.querySelector('div[style]');
+    if (wrapper) wrapper.insertBefore(resetBtn, wrapper.firstChild);
+  }
+
   // Update state
   if (quizId === 'capstone') {
     // Capstone quiz
@@ -4822,7 +4921,103 @@ function navigate(sectionId) {
 }
 
 /* ------------------------------------------------------------
-   8. TAB SWITCHING
+   8. RESET PROGRESS
+   ------------------------------------------------------------ */
+function resetProgress() {
+  var overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = '<div class="modal-box">' +
+    '<h3>Reset All Progress</h3>' +
+    '<p>This will erase all quiz scores, answers, and progress. This cannot be undone.</p>' +
+    '<div class="modal-actions">' +
+    '<button class="btn btn-secondary" id="resetCancel">Cancel</button>' +
+    '<button class="btn btn-danger-solid" id="resetConfirm">Reset</button>' +
+    '</div></div>';
+  document.body.appendChild(overlay);
+
+  overlay.querySelector('#resetCancel').onclick = function() {
+    document.body.removeChild(overlay);
+  };
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) document.body.removeChild(overlay);
+  });
+  overlay.querySelector('#resetConfirm').onclick = function() {
+    State.reset();
+    document.body.removeChild(overlay);
+    location.reload();
+  };
+}
+
+function _reRenderQuiz(quizId) {
+  if (quizId === 'capstone') {
+    var container = document.querySelector('#capstone .quiz-container');
+    if (container) {
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = Renderer._renderQuizHTML('capstone', CAPSTONE_DATA.quiz);
+      container.replaceWith(wrapper.firstElementChild);
+    }
+  } else {
+    var section = SECTIONS.find(function(s) { return s.id === quizId; });
+    if (!section) return;
+    var quizPanel = document.querySelector('#' + quizId + ' .tab-panel[data-tab="quiz"]');
+    if (quizPanel) {
+      quizPanel.innerHTML = Renderer._renderQuizHTML(quizId, section.quiz || []);
+    }
+  }
+  Renderer.updateProgress();
+}
+
+function resetSectionQuiz(quizId) {
+  if (quizId === 'capstone') {
+    State.capstoneScore = null;
+    State.capstoneAnswers = [];
+  } else {
+    delete State.quizScores[quizId];
+    delete State.quizAnswers[quizId];
+  }
+  State.save();
+  _reRenderQuiz(quizId);
+}
+
+function resetSingleQuestion(quizId, questionIndex) {
+  if (quizId === 'capstone') {
+    State.capstoneAnswers[questionIndex] = undefined;
+    var quiz = CAPSTONE_DATA.quiz;
+    var answered = 0, correct = 0;
+    State.capstoneAnswers.forEach(function(a, i) {
+      if (a !== undefined) {
+        answered++;
+        if (a === quiz[i].correct) correct++;
+      }
+    });
+    State.capstoneScore = answered === 0 ? null : correct;
+  } else {
+    var answers = State.quizAnswers[quizId];
+    if (answers) {
+      answers[questionIndex] = undefined;
+      var section = SECTIONS.find(function(s) { return s.id === quizId; });
+      if (section && section.quiz) {
+        var answered = 0, correct = 0;
+        answers.forEach(function(a, i) {
+          if (a !== undefined) {
+            answered++;
+            if (a === section.quiz[i].correct) correct++;
+          }
+        });
+        if (answered === 0) {
+          delete State.quizScores[quizId];
+        } else {
+          State.quizScores[quizId] = { correct: correct, total: section.quiz.length };
+        }
+      }
+    }
+  }
+  State.save();
+  _reRenderQuiz(quizId);
+}
+
+/* ------------------------------------------------------------
+   9. TAB SWITCHING
    ------------------------------------------------------------ */
 function switchTab(sectionId, tabName) {
   var section = document.getElementById(sectionId);
