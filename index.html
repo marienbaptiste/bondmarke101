@@ -1490,7 +1490,7 @@ const SECTIONS = [
           'YTM is less than 6% because the bond trades at a premium',
           'YTM is exactly 6% because the coupon determines yield',
           'YTM is greater than 6% because the bond trades at a premium',
-          'Cannot determine without knowing the credit rating'
+          'YTM is less than 6% because longer maturities always have lower yields'
         ],
         correct: 0,
         explanation: 'When a bond trades above par (premium), investors accept a lower YTM than the coupon rate. The higher price reduces the effective return below the stated coupon rate. The excess coupon payments relative to YTM compensate for the premium paid above par, which is amortized over the life of the bond.'
@@ -1509,10 +1509,10 @@ const SECTIONS = [
       {
         q: 'Why might two bonds with identical YTMs have different present values when priced off the spot curve?',
         options: [
-          'Spot rate pricing always gives higher values than YTM pricing',
+          'Spot rate pricing always produces higher values because it uses more discount rates',
           'Different coupon structures create different exposures across the term structure, and the spot curve is not flat',
           'YTM pricing ignores credit risk while spot pricing includes it',
-          'Spot curves are only accurate for government bonds'
+          'The bonds must have different maturities for this to occur'
         ],
         correct: 1,
         explanation: 'YTM uses a single flat discount rate for all cash flows, while spot rate pricing uses the unique zero-coupon rate for each maturity. A high-coupon bond receives more of its value from earlier (typically lower-rate) cash flows compared to a low-coupon bond. When the yield curve is steep, this difference in cash flow timing interacts with varying spot rates to produce different prices even at the same YTM.'
@@ -2018,7 +2018,7 @@ const SECTIONS = [
           '7.20% per year'
         ],
         correct: 1,
-        explanation: 'Using the approximation Spread ≈ λ × LGD: λ = Spread / LGD = 180 bps / (1 - 0.40) = 180 / 0.60 = 300 bps = 3.00% per year. This back-of-the-envelope calculation allows rapid conversion between observed spreads and implied default probabilities.'
+        explanation: 'Using the approximation Spread ≈ λ × (1 - Recovery), where (1 - Recovery) is the Loss Given Default (LGD): λ = Spread / (1 - R) = 180 bps / (1 - 0.40) = 180 / 0.60 = 300 bps = 3.00% per year. This back-of-the-envelope calculation allows rapid conversion between observed spreads and implied default probabilities.'
       },
       {
         q: 'Two bonds from the same issuer have different recovery assumptions: Bond X (senior secured, 60% recovery) and Bond Y (subordinated, 25% recovery). If both bonds should reflect the same hazard rate, what is the expected relationship between their spreads?',
@@ -2340,8 +2340,8 @@ const SECTIONS = [
           '$10,000 per basis point',
           '$65,000 per basis point'
         ],
-        correct: 1,
-        explanation: 'Current DV01 = 6.5 × $100M × 0.0001 = $65,000. Target DV01 = 4.0 × $100M × 0.0001 = $40,000. Required reduction = $65,000 - $40,000 = $25,000 per basis point. However, looking at the formula: ΔDVO1 = ΔDuration × MV × 0.0001 = 2.5 × $100M × 0.0001 = $25,000. The correct answer is $25,000 per basis point.'
+        correct: 0,
+        explanation: 'DV01 = Duration × Market Value × 0.0001. Current DV01 = 6.5 × $100M × 0.0001 = $65,000/bp. Target DV01 = 4.0 × $100M × 0.0001 = $40,000/bp. Required reduction = $65,000 - $40,000 = $25,000 per basis point. Equivalently, ΔDV01 = ΔDuration × MV × 0.0001 = 2.5 × $100M × 0.0001 = $25,000/bp.'
       },
       {
         q: 'Why might a callable bond\'s spread duration differ significantly from its modified duration?',
@@ -3005,15 +3005,15 @@ const SECTIONS = [
     quiz: [
       {
         q: 'A portfolio manager must construct an investment-grade portfolio with duration between 5-7 years. Which bond would MOST help reduce duration if the current portfolio duration is 7.8 years?',
-        options: ['10-year BBB at 6.1% YTM', '3-year AA at 4.2% YTM', '7-year A at 5.5% YTM', '30-year AAA at 4.8% YTM'],
+        options: ['10-year BBB at 6.1% YTM, which has the highest yield and therefore the most duration risk offset', '3-year AA at 4.2% YTM, which has the shortest maturity and lowest duration', '7-year A at 5.5% YTM, which is closest to the target duration midpoint', '5-year BBB at 5.8% YTM with a high coupon that reduces effective duration'],
         correct: 1,
-        explanation: 'The 3-year AA bond has the shortest duration among the choices, which would pull the weighted-average portfolio duration downward most effectively. Short-maturity, high-coupon bonds have the lowest duration.'
+        explanation: 'The 3-year AA bond has the shortest duration among the choices (~2.8 years), which would pull the weighted-average portfolio duration downward most effectively. While higher yields and coupons do reduce duration marginally, maturity is the dominant driver. The 7Y bond would barely help, and the 10Y bond would increase duration.'
       },
       {
         q: 'What is the primary purpose of a maximum single-issuer concentration limit in portfolio construction?',
-        options: ['To maximize portfolio yield', 'To minimize transaction costs', 'To limit idiosyncratic default risk', 'To reduce interest rate sensitivity'],
+        options: ['To ensure adequate portfolio liquidity by diversifying across dealers', 'To reduce systematic spread risk by spreading across sectors', 'To limit idiosyncratic default risk from any single credit event', 'To lower portfolio duration by preventing large allocations to long-dated issuers'],
         correct: 2,
-        explanation: 'Maximum single-issuer limits protect against concentration risk — the risk that a single default or credit event causes disproportionate portfolio losses. This is a form of managing idiosyncratic (issuer-specific) risk.'
+        explanation: 'Maximum single-issuer limits protect against concentration risk \u2014 the risk that a single default or credit event causes disproportionate portfolio losses. This is a form of managing idiosyncratic (issuer-specific) risk, distinct from systematic risk which affects all credits.'
       },
       {
         q: 'An equal-weighted portfolio of 8 bonds has each bond at 12.5% weight. If the IPS limits single-name exposure to 10%, what is the minimum number of bonds needed to invest 100% of capital?',
@@ -3029,9 +3029,9 @@ const SECTIONS = [
       },
       {
         q: 'A portfolio is 40% Financials, 20% Industrials, 15% Utilities, 15% Energy, 10% Technology. In a financial crisis scenario, the primary concern is:',
-        options: ['Interest rate risk from the Utilities allocation', 'Concentration risk from the 40% Financials overweight', 'Liquidity risk from the Technology allocation', 'Duration mismatch from the Energy allocation'],
+        options: ['The Utilities allocation, since regulated sectors face margin compression in rate-rise environments', 'Concentration risk from the 40% Financials overweight, exposing the portfolio to correlated sector losses', 'The Energy allocation, since commodity prices typically collapse alongside financial stress', 'Broad credit spread risk across all sectors, since financial crises affect IG spreads uniformly'],
         correct: 1,
-        explanation: 'A 40% allocation to Financials creates significant concentration risk during a financial crisis. Financial sector spreads can widen 200-400 bps in a crisis, causing outsized losses when the sector represents such a large portfolio share. The 2008 crisis demonstrated this exact scenario.'
+        explanation: 'A 40% allocation to Financials creates significant sector concentration risk during a financial crisis. Financial sector spreads can widen 200-400 bps in a crisis, causing outsized losses when the sector represents such a large portfolio share. While all sectors are affected, the disproportionate Financials weight makes it the dominant risk factor. The 2008 crisis demonstrated this exact scenario.'
       }
     ]
   },
@@ -3905,7 +3905,7 @@ const SECTIONS = [
       },
       {
         q: 'Which statement about Expected Shortfall (ES) vs VaR is TRUE?',
-        options: ['ES is always smaller than VaR', 'ES measures the average loss when VaR is breached, making it always larger than VaR', 'ES and VaR are identical for normal distributions', 'ES is only relevant for equity portfolios'],
+        options: ['ES is always smaller than VaR because it averages over a narrower tail', 'ES measures the average loss when VaR is breached, making it always larger than VaR', 'ES and VaR converge to the same value as the confidence level approaches 100%', 'ES is less useful than VaR because it is more sensitive to extreme outliers in the data'],
         correct: 1,
         explanation: 'ES (Conditional VaR) is the expected loss given that the VaR threshold has been breached. By definition, it is always larger than VaR because it averages the tail losses beyond the VaR cutoff. For the 95% level, ES is typically 20-30% larger than VaR under normality.'
       },
@@ -3978,9 +3978,9 @@ const CAPSTONE_DATA = {
   quiz: [
     {
       q: 'What is the approximate weighted average duration of the capstone portfolio?',
-      options: ['3.8 years', '5.2 years', '6.1 years', '7.4 years'],
+      options: ['3.8 years', '5.0 years', '6.1 years', '7.4 years'],
       correct: 1,
-      explanation: 'The portfolio has bonds ranging from 3Y to 10Y maturity with weights concentrated in the 3-7Y range. The weighted average modified duration is approximately 5.2 years.'
+      explanation: 'Weighting each bond\'s modified duration by its portfolio weight: GS ~2.8Y\u00d720% + Apple ~3.7Y\u00d715% + AT&T ~4.3Y\u00d715% + JPM ~5.8Y\u00d720% + Ford ~6.2Y\u00d715% + Duke ~7.8Y\u00d715% \u2248 5.0 years. The overweight to shorter-duration Financials (3Y and 7Y) keeps the portfolio duration near the lower end of a 5\u20136Y mandate.'
     },
     {
       q: 'Which sector has the largest allocation in the portfolio?',
@@ -3991,8 +3991,8 @@ const CAPSTONE_DATA = {
     {
       q: 'Under the shock scenario, which risk factor contributes the most to portfolio losses?',
       options: ['Default losses', 'Spread widening', 'Interest rate increase', 'Liquidity deterioration'],
-      correct: 2,
-      explanation: 'The +75bp rate increase applied to a ~5.2Y duration portfolio causes roughly -3.9% P&L from rates alone, the largest single component. Spread widening is the second largest.'
+      correct: 1,
+      explanation: 'With the differentiated spread shocks (+60bp for IG, +120bp for BBB/BBB-), the weighted spread P&L (~-4.0%) slightly exceeds the rate P&L (~-3.8%) despite the uniform +75bp rate shock. The BBB- and BBB positions absorb disproportionate spread losses due to both wider shocks and longer durations. Default losses are a distant third. This illustrates why credit spread risk often dominates in stress scenarios with differentiated spread shocks by rating tier.'
     },
     {
       q: 'The Ford Motor bond (BBB-) is subject to the default shock. What is the approximate loss from this position?',
@@ -4024,9 +4024,9 @@ const CAPSTONE_DATA = {
     },
     {
       q: 'If spreads had tightened by 20bp instead of widening, the spread P&L would have been approximately:',
-      options: ['+1.04%', '+1.24%', '+0.62%', '+2.48%'],
+      options: ['+1.00%', '+1.24%', '+0.62%', '+2.48%'],
       correct: 0,
-      explanation: 'With spread duration of approximately 5.2, a 20bp tightening would produce roughly +5.2 \u00d7 0.20% = +1.04% P&L from spread changes.'
+      explanation: 'With a portfolio spread duration of approximately 5.0 years, a 20bp tightening would produce roughly +5.0 \u00d7 0.20% = +1.00% P&L from spread changes. Spread tightening is beneficial for long credit positions.'
     },
     {
       q: 'The portfolio has 40% in Financials. This concentration is most concerning because:',

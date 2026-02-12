@@ -4,7 +4,9 @@
       "Bash(dir:*)",
       "Bash(cmd /c \"dir /b c:\\\\CodeProjects\\\\Market Research\\\\part*.tmp\")",
       "Bash(ls:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(node:*)",
+      "Bash(del:*)"
     ]
   }
 }
